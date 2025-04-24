@@ -1,37 +1,67 @@
-// const candiesWrapper = document.getElementById("candies-wrapper");
+const submitBtn = document.getElementById("sumbit-btn");
+const titleInput = document.getElementById("title");
+const ratingInput = document.getElementById("rating");
+const imgUrlInput = document.getElementById("imgUrl");
+const priceInput = document.getElementById("price");
+const descriptionInput = document.getElementById("description");
+const successMessage = document.getElementById("succsess-message");
 
-// const fetchCandies = async () => {
-//   const response = await fetch(
-//     "https://680726a0e81df7060eb8fba8.mockapi.io/candies"
-//   );
+const insertCandy = async (data) => {
+  const response = await fetch(
+    "https://680726a0e81df7060eb8fba8.mockapi.io/candies",
+    {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: { "Content-Type": "application/json" },
+    }
+  );
 
-//   const data = await response.json();
-//   return data;
-// };
+  const candies = await response.json();
+  return candies;
+};
 
-// const buildCards = (data) => {
-//   data.forEach((d) => {
-//     const card = document.createElement("div");
-//     card.classList.add("card");
+submitBtn.addEventListener("click", async () => {
+  const data = {
+    title: titleInput.value,
+    imgUrl: imgUrlInput.value,
+    price: +priceInput.value,
+    description: descriptionInput.value,
+    rating: +ratingInput.value,
+  };
 
-//     const title = document.createElement("h2");
-//     title.textContent = d.title;
+  // console.log(
+  //   data.title,
+  //   data.imgUrl,
+  //   data.price,
+  //   data.description,
+  //   data.rating
+  // );
 
-//     const img = document.createElement("img");
-//     img.src = d.imgUrl;
+  if (isNaN(data.price) || isNaN(data.rating)) {
+    console.log("Price and  rating should be a number");
+    return;
+  }
 
-//     card.append(img);
-//     card.append(title);
+  if (
+    !data.title ||
+    !data.imgUrl ||
+    !data.price ||
+    !data.description ||
+    !data.rating
+  ) {
+    console.log("Please insert all the data");
+    return;
+  }
 
-//     console.log(title);
+  const candy = await insertCandy(data);
 
-//     candiesWrapper.append(card);
-//   });
-// };
+  if (candy) {
+    successMessage.textContent = "Candy was added successfully";
 
-// const buildScreen = async () => {
-//   const candies = await fetchCandies();
-//   buildCards(candies);
-// };
+    setTimeout(() => {
+      window.location.replace("../index.html");
+    }, 3000);
+  }
 
-// buildScreen();
+  console.log("candy", candy);
+});
