@@ -29,14 +29,6 @@ submitBtn.addEventListener("click", async () => {
     rating: +ratingInput.value,
   };
 
-  // console.log(
-  //   data.title,
-  //   data.imgUrl,
-  //   data.price,
-  //   data.description,
-  //   data.rating
-  // );
-
   if (isNaN(data.price) || isNaN(data.rating)) {
     console.log("Price and  rating should be a number");
     return;
@@ -62,6 +54,4 @@ submitBtn.addEventListener("click", async () => {
       window.location.replace("../index.html");
     }, 3000);
   }
-
-  console.log("candy", candy);
 });
