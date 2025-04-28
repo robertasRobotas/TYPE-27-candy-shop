@@ -1,3 +1,6 @@
+import { insertCandy } from "../utils/fetch.js";
+import { validateInsert } from "../utils/validation.js";
+
 const submitBtn = document.getElementById("sumbit-btn");
 const titleInput = document.getElementById("title");
 const ratingInput = document.getElementById("rating");
@@ -5,20 +8,6 @@ const imgUrlInput = document.getElementById("imgUrl");
 const priceInput = document.getElementById("price");
 const descriptionInput = document.getElementById("description");
 const successMessage = document.getElementById("succsess-message");
-
-const insertCandy = async (data) => {
-  const response = await fetch(
-    "https://680726a0e81df7060eb8fba8.mockapi.io/candies",
-    {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: { "Content-Type": "application/json" },
-    }
-  );
-
-  const candies = await response.json();
-  return candies;
-};
 
 submitBtn.addEventListener("click", async () => {
   const data = {
@@ -29,19 +18,10 @@ submitBtn.addEventListener("click", async () => {
     rating: +ratingInput.value,
   };
 
-  if (isNaN(data.price) || isNaN(data.rating)) {
-    console.log("Price and  rating should be a number");
-    return;
-  }
+  const isValidationError = validateInsert(data);
 
-  if (
-    !data.title ||
-    !data.imgUrl ||
-    !data.price ||
-    !data.description ||
-    !data.rating
-  ) {
-    console.log("Please insert all the data");
+  if (isValidationError) {
+    console.log("there is validation error");
     return;
   }
 

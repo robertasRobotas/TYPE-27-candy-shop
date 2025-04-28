@@ -4,12 +4,22 @@
   box-sizing: border-box;
 }
 
+body {
+  background: #dff3f5;
+  font-family: "Arial", sans-serif;
+  color: #333;
+}
+
 header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 2rem;
   height: 100px;
+  background: #fdf6ec;
+  border-bottom: 2px solid #000;
+  box-shadow: 4px 4px 0px #000;
+  margin-bottom: 2rem;
 }
 
 header nav ul {
@@ -20,12 +30,27 @@ header nav ul {
 }
 
 header nav ul li a {
-  color: black;
+  color: #333;
   text-decoration: none;
+  padding: 6px 12px;
+  border: 2px solid #000;
+  border-radius: 8px;
+  box-shadow: 3px 3px 0px #000;
+  background: #fdf6ec;
+  margin-bottom: 2rem;
+}
+
+header nav ul li a:hover {
+  background: #e0dad0;
 }
 
 main h1 {
   text-align: center;
+}
+
+main a {
+  color: #333;
+  text-decoration: none;
 }
 
 .candies-wrapper {
